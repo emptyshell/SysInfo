@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
+
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Image Shrink Tool</title>
+    
+</head>
+<body>
+
+    <div class="container">
+        <h3 class="title center-align"><img src="../assets/icons/icon.svg" width="50" height="50"> SysInfo</h3>
+
+        <div class="row">
+            <div class="col s12">
+              <ul class="tabs tabs-fixed-width">
+                <li class="tab col s3 waves-effect waves-teal"><a class="active" href="#cpu"><img src="../assets/icons/cpu.svg" id="cpu-icon">CPU</a></li>
+                <li class="tab col s3 waves-effect waves-teal"><a href="#memory"><img src="../assets/icons/ram.svg" id="memory-icon">Memory</a></li>
+                <li class="tab col s3 waves-effect waves-teal"><a href="#gpu"><img src="../assets/icons/gpu.svg" id="gpu-icon">GPU</a></li>
+                <li class="tab col s3 waves-effect waves-teal"><a href="#hdd"><img src="../assets/icons/hdd.svg" id="hdd-icon">HDD</a></li>
+                <li class="tab col s3 waves-effect waves-teal"><a href="#info"><img src="../assets/icons/info.svg" id="info-icon">Info</a></li>
+              </ul>
+            </div>
+            <div id="cpu" class="col s12">
+                <div class="row slim">
+                    <span>Utillization:<span id="cpu-usage" class="new badge" data-badge-caption="%"></span></span>
+                    <div class="progress">
+                        <div id="cpu-progress" class="determinate" style="width: 70%"></div>
+                    </div>
+                </div>
+                <div class="row slim">Name: <span id="cpu-name"></span></div>
+                <div class="row slim">Base Speed: <span id="cpu-base-speed"></span></div>
+                <div class="row slim">Sockets: <span id="cpu-sockets"></span></div>
+                <div class="row slim">Cores: <span id="cpu-cores"></span></div>
+            </div>
+            <div id="memory" class="col s12">
+                <div class="row slim">
+                    <span>Usage:<span id="ram-usage" class="new badge" data-badge-caption="%"></span></span>
+                    <div class="progress">
+                        <div id="ram-progress" class="determinate" style="width: 70%"></div>
+                    </div>
+                </div>
+                <div class="row slim">In use: <span id="ram-use"></span></div>
+                <div class="row slim">Available: <span id="ram-available"></span></div>
+            </div>
+            <div id="gpu" class="col s12">
+                <div class="row slim">
+                    <span>Usage:<span class="new badge" data-badge-caption="%"></span></span>
+                    <div class="progress">
+                        <div id="gpu-progress" class="determinate" style="width: 70%"></div>
+                    </div>
+                </div>
+                <div class="row slim">Name: <span id="gpu-name"></span></div>
+                <div class="row slim">Memory in use: <span id="gpu-memory-use"></span></div>
+                <div class="row slim">Memory available: <span id="gpu-memory-available"></span></div>
+            </div>
+            <div id="hdd" class="col s12">
+                <div class="row slim">Name: <span id="hdd-name"></span></div>
+                <div class="row slim">Capacity: <span id="hdd-capacity"></span></div>
+                <div class="row slim">Type: <span id="hdd-type"></span></div></div>
+            </div>
+            <div id="info" class="col s12">
+                <div class="row slim">OS Name: <span id="info-os-name"></span></div>
+                <div class="row slim">Username: <span id="info-username"></span></div>
+                <div class="row slim">Uptime: <span id="info-uptime"></span></div>
+            </div>
+    </div>
+
+    <script src="js/materialize.min.js"></script>
+    <script>
+
+        var instance = M.Tabs.init(document.querySelectorAll('.tabs'), {swipeable: false});
+
+        const path = require("path");
+        const os = require("os");
+        const {ipcRenderer} = require('electron')
+
+        ipcRenderer.on('image:done', () => {
+            M.toast({
+                html: `Image reized to: ${slider.value}% quality`,
+            })
+        })
+    </script>
+</body>
+</html>
