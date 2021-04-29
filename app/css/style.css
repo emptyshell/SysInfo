@@ -1,3 +1,7 @@
+.container {
+  width: 98%;
+}
+
 .title {
   margin-bottom: 45px;
 }
@@ -10,7 +14,8 @@
 #memory-icon,
 #gpu-icon,
 #hdd-icon,
-#info-icon {
+#info-icon,
+#settings-icon {
   height: 50%;
   width: 50%;
   align-self: flex-start;
@@ -20,7 +25,7 @@
 #gpu,
 #memory,
 #hdd,
-#info {
+#pc-info {
   margin-top: 25px;
 }
 
@@ -51,4 +56,8 @@
 .tabs .indicator {
   background-color: #fff;
   /*Custom Color Of Indicator*/
+}
+
+#submit-settings-btn {
+  margin-right: 8px;
 }

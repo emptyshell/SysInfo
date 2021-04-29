@@ -24,7 +24,8 @@
                 <li class="tab col s3 waves-effect waves-teal"><a href="#memory"><img src="../assets/icons/ram.svg" id="memory-icon">Memory</a></li>
                 <li class="tab col s3 waves-effect waves-teal"><a href="#gpu"><img src="../assets/icons/gpu.svg" id="gpu-icon">GPU</a></li>
                 <li class="tab col s3 waves-effect waves-teal"><a href="#hdd"><img src="../assets/icons/hdd.svg" id="hdd-icon">HDD</a></li>
-                <li class="tab col s3 waves-effect waves-teal"><a href="#info"><img src="../assets/icons/info.svg" id="info-icon">Info</a></li>
+                <li class="tab col s3 waves-effect waves-teal"><a href="#pc-info"><img src="../assets/icons/info.svg" id="info-icon">Info</a></li>
+                <li class="tab col s3 waves-effect waves-teal"><a href="#settings"><img src="../assets/icons/settings.svg" id="settings-icon"></a></li>
               </ul>
             </div>
             <div id="cpu" class="col s12">
@@ -64,12 +65,34 @@
                 <div class="row slim">Name: <span id="hdd-name"></span></div>
                 <div class="row slim">Capacity: <span id="hdd-capacity"></span></div>
                 <div class="row slim">Type: <span id="hdd-type"></span></div></div>
-            </div>
-            <div id="info" class="col s12">
+            <div id="pc-info" class="col s12">
                 <div class="row slim">OS Name: <span id="info-os-name"></span></div>
                 <div class="row slim">Username: <span id="info-username"></span></div>
                 <div class="row slim">Uptime: <span id="info-uptime"></span></div>
             </div>
+            <div id="settings" class="col s12">
+                <form id="settings-form">
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <input placeholder="Placeholder" id="cpu-overload-warn" type="text" class="validate">
+                            <label for="cpu-overload-warn">CPU Overload Warning</label>
+                      </div>
+                        <div class="input-field col s4">
+                            <input placeholder="Placeholder" id="ram-overload-warn" type="text" class="validate">
+                            <label for="ram-overload-warn">Memory Overload Warning</label>
+                      </div>
+                        <div class="input-field col s4">
+                            <input placeholder="Placeholder" id="alert-frequency" type="text" class="validate">
+                            <label for="alert-frequency">Alert Frequency Notification (In Minutes)</label>
+                      </div>
+                    </div>
+                    
+                    <div class="row right-align" id="submit-settings-btn">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Save settings</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script src="js/materialize.min.js"></script>
