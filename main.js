@@ -1,6 +1,13 @@
 const path = require("path");
 const os = require("os");
-const { app, BrowserWindow, Menu, ipcMain, shell } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  Menu,
+  ipcMain,
+  shell,
+  ipcRenderer,
+} = require("electron");
 const log = require("electron-log");
 
 process.env.NODE_ENV = "development";
