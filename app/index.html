@@ -17,18 +17,19 @@
     <div class="container">
         <h3 class="title center-align"><img src="../assets/icons/icon.svg" width="50" height="50"> SysInfo</h3>
 
-        <div class="row">
-            <div class="col s12">
+        <div class="row tabs-vertical">
+            <div class="col s5">
               <ul class="tabs tabs-fixed-width">
-                <li class="tab col s3 waves-effect waves-teal"><a class="active" href="#cpu"><img src="../assets/icons/cpu.svg" id="cpu-icon">CPU</a></li>
-                <li class="tab col s3 waves-effect waves-teal"><a href="#memory"><img src="../assets/icons/ram.svg" id="memory-icon">Memory</a></li>
-                <li class="tab col s3 waves-effect waves-teal"><a href="#gpu"><img src="../assets/icons/gpu.svg" id="gpu-icon">GPU</a></li>
-                <li class="tab col s3 waves-effect waves-teal"><a href="#hdd"><img src="../assets/icons/hdd.svg" id="hdd-icon">HDD</a></li>
-                <li class="tab col s3 waves-effect waves-teal"><a href="#pc-info"><img src="../assets/icons/info.svg" id="info-icon">Info</a></li>
-                <li class="tab col s3 waves-effect waves-teal"><a href="#settings"><img src="../assets/icons/settings.svg" id="settings-icon"></a></li>
+                <li class="tab waves-effect waves-teal"><a class="active" href="#cpu"><img src="../assets/icons/cpu.svg" id="cpu-icon">CPU</a></li>
+                <li class="tab waves-effect waves-teal"><a href="#memory"><img src="../assets/icons/ram.svg" id="memory-icon">Memory</a></li>
+                <li class="tab waves-effect waves-teal"><a href="#gpu"><img src="../assets/icons/gpu.svg" id="gpu-icon">GPU</a></li>
+                <li class="tab waves-effect waves-teal"><a href="#hdd"><img src="../assets/icons/hdd.svg" id="hdd-icon">HDD</a></li>
+                <li class="tab waves-effect waves-teal"><a href="#pc-info"><img src="../assets/icons/info.svg" id="info-icon">Info</a></li>
+                <li class="tab waves-effect waves-teal"><a href="#settings"><img src="../assets/icons/settings.svg" id="settings-icon">Settings</a></li>
               </ul>
             </div>
-            <div id="cpu" class="col s12">
+            <div class="col s7">
+            <div id="cpu" class="tab-content">
                 <div class="row slim">
                     <span>Utillization:<span id="cpu-usage" class="new badge" data-badge-caption="%"></span></span>
                     <div class="progress">
@@ -40,7 +41,7 @@
                 <div class="row slim">Sockets: <span id="cpu-sockets"></span></div>
                 <div class="row slim">Cores: <span id="cpu-cores"></span></div>
             </div>
-            <div id="memory" class="col s12">
+            <div id="memory" class="tab-content">
                 <div class="row slim">
                     <span>Usage:<span id="ram-usage" class="new badge" data-badge-caption="%"></span></span>
                     <div class="progress">
@@ -50,7 +51,7 @@
                 <div class="row slim">In use: <span id="ram-use"></span></div>
                 <div class="row slim">Available: <span id="ram-available"></span></div>
             </div>
-            <div id="gpu" class="col s12">
+            <div id="gpu" class="tab-content">
                 <div class="row slim">
                     <span>Usage:<span class="new badge" data-badge-caption="%"></span></span>
                     <div class="progress">
@@ -61,27 +62,31 @@
                 <div class="row slim">Memory in use: <span id="gpu-memory-use"></span></div>
                 <div class="row slim">Memory available: <span id="gpu-memory-available"></span></div>
             </div>
-            <div id="hdd" class="col s12">
+            <div id="hdd" class="tab-content">
                 <div class="row slim">Name: <span id="hdd-name"></span></div>
                 <div class="row slim">Capacity: <span id="hdd-capacity"></span></div>
                 <div class="row slim">Type: <span id="hdd-type"></span></div></div>
-            <div id="pc-info" class="col s12">
+            <div id="pc-info" class="col tab-content">
                 <div class="row slim">OS Name: <span id="info-os-name"></span></div>
                 <div class="row slim">Username: <span id="info-username"></span></div>
                 <div class="row slim">Uptime: <span id="info-uptime"></span></div>
             </div>
-            <div id="settings" class="col s12">
+            <div id="settings" class="tab-content">
                 <form id="settings-form">
                     <div class="row">
-                        <div class="input-field col s4">
+                        <div class="input-field col s12">
                             <input placeholder="Placeholder" id="cpu-overload-warn" type="text" class="validate">
                             <label for="cpu-overload-warn">CPU Overload Warning</label>
                       </div>
-                        <div class="input-field col s4">
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
                             <input placeholder="Placeholder" id="ram-overload-warn" type="text" class="validate">
                             <label for="ram-overload-warn">Memory Overload Warning</label>
                       </div>
-                        <div class="input-field col s4">
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
                             <input placeholder="Placeholder" id="alert-frequency" type="text" class="validate">
                             <label for="alert-frequency">Alert Frequency Notification (In Minutes)</label>
                       </div>
@@ -92,6 +97,7 @@
                     </div>
                 </form>
             </div>
+        </div>
         </div>
     </div>
 

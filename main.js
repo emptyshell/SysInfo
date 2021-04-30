@@ -13,8 +13,8 @@ let aboutWindow;
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
-    width: isDev ? 1180 : 880,
-    height: 450,
+    width: isDev ? 700 : 500,
+    height: 540,
     title: "Image Shrink",
     icon: `${__dirname}/assets/icons/icon.svg`,
     resizable: isDev,
