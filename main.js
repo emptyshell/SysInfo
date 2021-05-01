@@ -1,18 +1,13 @@
 const path = require("path");
 const os = require("os");
-const {
-  app,
-  BrowserWindow,
-  Menu,
-  ipcMain,
-  shell,
-  ipcRenderer,
-  Tray,
-} = require("electron");
+const { app, Menu, ipcMain, shell, ipcRenderer } = require("electron");
 const Store = require("./Store");
 const { settings } = require("cluster");
+const MainWindow = require("./MainWindow");
+const AboutWindow = require("./AboutWindow");
+const AppTray = require("./AppTray");
 
-process.env.NODE_ENV = "development";
+process.env.NODE_ENV = "production";
 
 const isDev = process.env.NODE_ENV !== "production" ? true : false;
 const isMac = process.platform === "darwin" ? true : false;
@@ -34,60 +29,36 @@ const store = new Store({
 });
 
 function createMainWindow() {
-  mainWindow = new BrowserWindow({
-    width: isDev ? 700 : 500,
-    height: 540,
-    title: "Image Shrink",
-    icon: `${__dirname}/assets/icons/icon.svg`,
-    resizable: isDev,
-    opacity: 0.95,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-
-  if (isDev) {
-    mainWindow.webContents.openDevTools();
-  }
-
-  mainWindow.webContents.on("dom-ready", () => {
-    mainWindow.webContents.send("settings:get", store.get("settings"));
-  });
-
-  mainWindow.loadFile("app/index.html");
+  mainWindow = new MainWindow("app/index.html", isDev);
 }
 
 function createAboutWindow() {
-  aboutWindow = new BrowserWindow({
-    width: 300,
-    height: 250,
-    title: "About Image Shrink",
-    opacity: 0.95,
-    icon: `${__dirname}/assets/icons/icon.svg`,
-    resizable: false,
-  });
-
-  aboutWindow.removeMenu();
-
-  aboutWindow.loadFile("app/about.html");
+  aboutWindow = new AboutWindow("app/about.html");
 }
 
 app.on("ready", () => {
   createMainWindow();
 
+  mainWindow.webContents.on("dom-ready", () => {
+    mainWindow.webContents.send("settings:get", store.get("settings"));
+  });
+
   const mainMenu = Menu.buildFromTemplate(menu);
   Menu.setApplicationMenu(mainMenu);
 
-  const icon = path.join(__dirname, "assets", "icons", "icon.png");
-  tray = new Tray(icon);
-
-  tray.on("click", () => {
-    if (mainWindow.isVisible() === true) {
+  mainWindow.on("close", (e) => {
+    if (!app.isQuitting) {
+      e.preventDefault();
       mainWindow.hide();
-    } else {
-      mainWindow.show();
     }
+
+    return true;
+  });
+
+  tray = new AppTray({
+    icon: path.join(__dirname, "assets", "icons", "tray_icon.png"),
+    mainWindow,
+    app,
   });
 
   mainWindow.on("closed", () => (mainWindow = null));

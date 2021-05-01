@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/materialize.min.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <title>Image Shrink Tool</title>
+    <title>SysInfo Tool</title>
     
 </head>
 <body>
@@ -22,7 +22,6 @@
               <ul class="tabs tabs-fixed-width">
                 <li class="tab waves-effect waves-teal"><a class="active" href="#cpu"><img src="../assets/icons/cpu.svg" id="cpu-icon">CPU</a></li>
                 <li class="tab waves-effect waves-teal"><a href="#memory"><img src="../assets/icons/ram.svg" id="memory-icon">Memory</a></li>
-                <li class="tab waves-effect waves-teal"><a id="hdd-tab" href="#hdd"><img src="../assets/icons/hdd.svg" id="hdd-icon">HDD</a></li>
                 <li class="tab waves-effect waves-teal"><a href="#pc-info"><img src="../assets/icons/info.svg" id="info-icon">Info</a></li>
                 <li class="tab waves-effect waves-teal"><a href="#settings"><img src="../assets/icons/settings.svg" id="settings-icon">Settings</a></li>
               </ul>
@@ -49,23 +48,6 @@
                 <div class="row slim">Total: <span id="ram-total"></span></div>
                 <div class="row slim">In use: <span id="ram-use"></span></div>
                 <div class="row slim">Available: <span id="ram-available"></span></div>
-            </div>
-            <div id="hdd" class="tab-content">
-                <div class="row slim">
-                    <span>Used space:<span id="hdd-usage" class="new badge" data-badge-caption="%">0</span></span>
-                    <div class="progress">
-                        <div id="hdd-used-progress" class="determinate" style="width: 0%"></div>
-                    </div>
-                </div>
-                <div class="row slim">
-                    <span>Free space:<span id="hdd-free" class="new badge" data-badge-caption="%">0</span></span>
-                    <div class="progress">
-                        <div id="hdd-free-progress" class="determinate" style="width: 0%"></div>
-                    </div>
-                </div>
-                <div class="row slim">Capacity: <span id="hdd-capacity"></span></div>
-                <div class="row slim">Used: <span id="hdd-used-gb"></span></div>
-                <div class="row slim">Free: <span id="hdd-free-gb"></span></div>
             </div>
             <div id="pc-info" class="col tab-content">
                 <div class="row slim">OS Name: <span id="info-os-name"></span></div>

@@ -50,17 +50,6 @@ const notifyUser = (options) => {
   new Notification(options.title, options);
 };
 
-if (os.platform() === "win32") {
-  const hddTab = document.getElementById("hdd-tab");
-
-  hddTab.addEventListener("click", () => {
-    //todo find solution or create one for windows platform
-    M.toast({
-      html: `<blockquote> HDD info is not available on ${os.platform()} platform! </blockquote>`,
-    });
-  });
-}
-
 setInterval(() => {
   // CPU stats start
   const cpuPercentage = document.getElementById("cpu-usage");
@@ -106,7 +95,7 @@ setInterval(() => {
     memFree.innerText = (info.freeMemMb / 1024).toFixed(2) + " GB";
 
     if (
-      (100 - info.freeMemPercentage).toFixed(2) >= memOverloadWarning &&
+      (100 - info.freeMemPercentage).toFixed(2) >= +memOverloadWarning &&
       runNotify(alertFrequencyMinutes, "lastNotifyMEMWarning")
     ) {
       notifyUser({
@@ -119,36 +108,6 @@ setInterval(() => {
     }
   });
   // MEM stats end
-
-  // HDD stats start
-
-  if (os.platform() !== "win32") {
-    const hddUsed = document.getElementById("hdd-usage");
-    const hddUsedProgress = document.getElementById("hdd-used-progress");
-    const hddFree = document.getElementById("hdd-free");
-    const hddFreeProgress = document.getElementById("hdd-free-progress");
-    const hddCapacity = document.getElementById("hdd-capacity");
-    const hddUsedGb = document.getElementById("hdd-used-gb");
-    const hddFreeGb = document.getElementById("hdd-free-gb");
-
-    drive
-      .info()
-      .then((info) => {
-        hddUsed.innerText = info.usedPercentage;
-        hddUsedProgress.style.width = info.usedPercentage + "%";
-        hddFree.innerText = info.freePercentage;
-        hddFreeProgress.style.width = info.freePercentage + "%";
-        hddCapacity.innerText = info.totalGb + " GB";
-        hddUsedGb.innerText = info.usedGb + " GB";
-        hddFreeGb.innerText = info.freeGb + " GB";
-      })
-      .catch((err) => {
-        M.toast({
-          html: err,
-        });
-      });
-  }
-  // HDD stats end
 
   // INFO stats start
   const osName = document.getElementById("info-os-name");
