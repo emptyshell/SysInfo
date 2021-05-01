@@ -7,8 +7,10 @@ const {
   ipcMain,
   shell,
   ipcRenderer,
+  Tray,
 } = require("electron");
-const log = require("electron-log");
+const Store = require("./Store");
+const { settings } = require("cluster");
 
 process.env.NODE_ENV = "development";
 
@@ -17,6 +19,19 @@ const isMac = process.platform === "darwin" ? true : false;
 
 let mainWindow;
 let aboutWindow;
+let tray;
+
+// Init Store and defaults
+const store = new Store({
+  configName: "user-settings",
+  defaults: {
+    settings: {
+      cpuOverloadWarning: 95,
+      memOverloadWarning: 95,
+      alertFrequencyMinutes: 3,
+    },
+  },
+});
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
@@ -25,6 +40,7 @@ function createMainWindow() {
     title: "Image Shrink",
     icon: `${__dirname}/assets/icons/icon.svg`,
     resizable: isDev,
+    opacity: 0.95,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -35,6 +51,10 @@ function createMainWindow() {
     mainWindow.webContents.openDevTools();
   }
 
+  mainWindow.webContents.on("dom-ready", () => {
+    mainWindow.webContents.send("settings:get", store.get("settings"));
+  });
+
   mainWindow.loadFile("app/index.html");
 }
 
@@ -43,6 +63,7 @@ function createAboutWindow() {
     width: 300,
     height: 250,
     title: "About Image Shrink",
+    opacity: 0.95,
     icon: `${__dirname}/assets/icons/icon.svg`,
     resizable: false,
   });
@@ -57,6 +78,17 @@ app.on("ready", () => {
 
   const mainMenu = Menu.buildFromTemplate(menu);
   Menu.setApplicationMenu(mainMenu);
+
+  const icon = path.join(__dirname, "assets", "icons", "icon.png");
+  tray = new Tray(icon);
+
+  tray.on("click", () => {
+    if (mainWindow.isVisible() === true) {
+      mainWindow.hide();
+    } else {
+      mainWindow.show();
+    }
+  });
 
   mainWindow.on("closed", () => (mainWindow = null));
 });
@@ -97,9 +129,9 @@ const menu = [
       ]),
 ];
 
-ipcMain.on("image:minimize", (e, options) => {
-  options.dest = path.join(os.homedir(), "imageshrink");
-  //   shrinkImage(options);
+ipcMain.on("settings:set", (e, options) => {
+  store.set("settings", options);
+  mainWindow.webContents.send("settings:get", store.get("settings"));
 });
 
 app.on("activate", () => {
