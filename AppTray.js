@@ -1,4 +1,4 @@
-const { Tray } = require("electron");
+const { Tray, Menu } = require("electron");
 
 class AppTray extends Tray {
   constructor(options) {
